@@ -1,0 +1,110 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IFE JavaScript Task 01</title>
+    </head>
+    <style></style>
+<body>
+    <input type="text" id="c4">
+    <input type="button" id="add-l" value="左侧添加">
+    <input type="button" id="add-r" value="右侧添加">
+    <input type="button" id="del-l" value="左侧删除">
+    <input type="button" id="del-r" value="右侧删除">
+    <ul id="source">
+      <li>9</li>
+      <li>10</li>
+      <!-- <li>2</li>
+      <li>3</li>
+      <li>8</li> -->
+    </ul>
+
+    <script type="text/javascript">
+        var c4 = document.getElementById("c4"),
+            addl = document.getElementById("add-l"),
+            addr = document.getElementById("add-r"),
+            dell = document.getElementById("del-l"),
+            delr = document.getElementById("del-r"),
+            source = document.getElementById("source"),
+            sourceLi = source.getElementsByTagName("li"),
+            arr = [];
+        //更新数组
+        function arrUpload(){
+          arr = [];
+          for(var i=0;i<sourceLi.length;i++){
+              arr.push(sourceLi[i].innerHTML);
+          };
+          // console.log(arr)
+        }
+        //添加删除
+        function add(dec) {
+            arrUpload()
+
+            var c4Val = c4.value;
+            // console.log(dec)
+            if(dec=="1"){
+                arr.unshift(c4Val)
+            }else{
+                arr.push(c4Val)
+            }
+            
+            outputHTML(arr)
+        }
+
+        function del(dec) {
+            arrUpload()
+
+            var c4Val = c4.value;
+
+            if(dec=="1"){
+              // console.log('进来了')
+              alert(arr[0])
+              arr.shift();
+            }else{
+              alert(arr[arr.length-1])
+              arr.pop();
+            }
+
+            outputHTML(arr)
+        }
+        //输出dom
+        function outputHTML(arr){
+            source.innerHTML = "";
+            for(var i=0;i<arr.length;i++){
+                source.innerHTML += '<li>'+arr[i]+'</li>';
+            } 
+            init();
+        }
+        //模仿$.remove
+        function removeElement(_element){
+           var _parentElement = _element.parentNode;
+           if(_parentElement){
+            _parentElement.removeChild(_element);
+           }
+        }  
+        //绑定li事件
+        function init() {
+          for (var i = 0; i < sourceLi.length; i++) {
+            (function(){
+              var index = i;
+              sourceLi[i].onclick = function(){
+                console.log(this);
+                removeElement(this);
+              } 
+            })()
+          }
+        }
+
+        addl.addEventListener("click",function(){
+            add("1")
+        });
+        addr.addEventListener("click",add);
+        dell.addEventListener("click",function(){
+            del("1")
+        });
+        delr.addEventListener("click",del);
+
+        init()
+    </script>
+</body>
+</html>
