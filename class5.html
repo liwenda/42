@@ -4,7 +4,11 @@
         <meta charset="utf-8">
         <title>IFE JavaScript Task 05-3</title>
     </head>
-    <style></style>
+    <style>
+      #source{overflow: hidden;margin: 10px 0;padding: 0;}
+      li{display: block;float: left;width: 20px;margin-left: 5px;vertical-align: 
+        bottom;background-color: red;height: 20px;overflow: hidden;text-indent: 999px;}
+    </style>
 <body>
     <input type="text" id="c4">
     <input type="button" id="add-l" value="左侧添加">
@@ -12,8 +16,8 @@
     <input type="button" id="del-l" value="左侧删除">
     <input type="button" id="del-r" value="右侧删除">
     <ul id="source">
-      <li>9</li>
-      <li>10</li>
+     <!--  <li>9</li>
+      <li>10</li> -->
       <!-- <li>2</li>
       <li>3</li>
       <li>8</li> -->
@@ -27,35 +31,55 @@
             delr = document.getElementById("del-r"),
             source = document.getElementById("source"),
             sourceLi = source.getElementsByTagName("li"),
-            arr = [];
+            arr = [],
+            maxLength=60;
+
+        function test(c4Val){
+            if(10>c4Val||c4Val>100){
+                alert("请输入10-100之间的数字")
+                return false;
+            }
+            return true;
+        }
         //更新数组
         function arrUpload(){
-          arr = [];
-          for(var i=0;i<sourceLi.length;i++){
-              arr.push(sourceLi[i].innerHTML);
-          };
-          // console.log(arr)
+            arr = [];
+            for(var i=0;i<sourceLi.length;i++){
+                arr.push(sourceLi[i].innerHTML);
+            };
+            // console.log(arr)
         }
+        function tesrLiLenght(c4Val,maxLength){
+            if(sourceLi.length>maxLength){
+              var c4Val = c4.value*1;
+              alert(c4Val)
+              return false;
+            }
+            return true;
+        }
+
         //添加删除
         function add(dec) {
-            arrUpload()
+            var c4Val = c4.value*1;
 
-            var c4Val = c4.value;
-            // console.log(dec)
-            if(dec=="1"){
-                arr.unshift(c4Val)
-            }else{
-                arr.push(c4Val)
+            if(test(c4Val)&&tesrLiLenght(c4Val,maxLength)){
+                arrUpload()
+                // console.log(dec)
+                if(dec=="1"){
+                    arr.unshift(c4Val)
+                }else{
+                    arr.push(c4Val)
+                }
+                
+                outputHTML(arr)
             }
-            
-            outputHTML(arr)
         }
 
         function del(dec) {
             arrUpload()
 
-            var c4Val = c4.value;
-
+            var c4Val = c4.value*1;
+            
             if(dec=="1"){
               // console.log('进来了')
               alert(arr[0])
@@ -70,8 +94,11 @@
         //输出dom
         function outputHTML(arr){
             source.innerHTML = "";
+            arr.sort(function(a,b){
+              return a-b;
+            })
             for(var i=0;i<arr.length;i++){
-                source.innerHTML += '<li>'+arr[i]+'</li>';
+                source.innerHTML += '<li style="height:'+arr[i]+'px;">'+arr[i]+'</li>';
             } 
             init();
         }
