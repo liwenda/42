@@ -33,13 +33,7 @@
             arr = [],
             maxLength=60;
 
-        function test(c4Val){
-            if(10>c4Val||c4Val>100){
-                alert("请输入10-100之间的数字")
-                return false;
-            }
-            return true;
-        }
+       
         //更新数组
         function arrUpload(){
             arr = [];
@@ -48,7 +42,15 @@
             };
             // console.log(arr)
         }
-        function tesrLiLenght(c4Val,maxLength){
+        //检测
+        function test(c4Val){
+            if(10>c4Val||c4Val>100){
+                alert("请输入10-100之间的数字")
+                return false;
+            }
+            return true;
+        }
+        function testLiLenght(c4Val,maxLength){
             if(sourceLi.length>maxLength){
               var c4Val = c4.value*1;
               alert(c4Val)
