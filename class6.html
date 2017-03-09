@@ -50,7 +50,7 @@
         }
         function arr2Upload(){
             var c4Val = c4.value;
-            var reg = /;|\r|,|，|、|\s/g
+            var reg = /;|\r|,|，|、|\s/g;
             var arr2 = c4Val.replace(reg,"-").split("-");
             //去空
             for(var i = 0 ;i<arr2.length;i++)
